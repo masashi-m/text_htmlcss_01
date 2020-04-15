@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>hc_1.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="1-html-%E3%81%AE%E5%9F%BA%E7%A4%8E%E7%9F%A5%E8%AD%98">1. HTML の基礎知識</h1>
+<h2 id="%E2%97%86html-%E3%81%A8%E3%81%AF">◆HTML とは</h2>
+<p>Web ページの構造や、コンテンツの役割を設定する言語です。<br>
+HTML で記述したファイルをブラウザに読み込ませる事で、<br>
+リンクや画像としてページ上に表示させる事が出来ます。</p>
+<blockquote>
+<ul>
+<li>見出し</li>
+<li>文章</li>
+<li>リンク</li>
+<li>画像</li>
+<li>ボタン など</li>
+</ul>
+</blockquote>
+<br>
+<h2 id="%E2%97%86web-%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E6%88%90%E3%82%8A%E7%AB%8B%E3%81%A1">◆Web サイトの成り立ち</h2>
+<p>Web サイトは複数の Web ページで構成されます。Web ページは<br>
+HTML ファイルを土台とし、CSS や JavaScript、画像データを<br>
+関連付けして構築されます。この関連付けを<mark>外部参照</mark>と呼びます。<br>
+今後の学習にも関わるので覚えておきましょう。<img class="emoji" alt="thumbsup" src="data:image/png;base64,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" /></p>
+<img src="webpage.png">
+<p><br><br></p>
+<h2 id="%E2%97%86web-%E3%82%B5%E3%82%A4%E3%83%88%E3%81%A8%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6">◆Web サイトとブラウザ</h2>
+<p>Web サイトを閲覧する際は、次のしくみが発生します。</p>
+<img src="server_client.png">
+<br>
+<blockquote>
+<ol>
+<li>端末(クライアント)からブラウザを立ち上げ、URL の入力やリンクを押す。</li>
+<li>ブラウザがサーバ（別のコンピュータ）へリクエストを送信</li>
+<li>サーバから Web ページのデータが戻って来る。</li>
+<li>ブラウザで Web ページが表示され、閲覧が可能となる。</li>
+</ol>
+</blockquote>
+<p>このように、コンピュータの役割を分担し、ネットワークで連携させたものを<br>
+<mark>クライアントサーバシステム</mark>と言います。クライアント側で機能する<br>
+技術を<mark>フロントエンド</mark>といい、HTML や CSS、JavaScript が活躍します。</p>
+<p><br><br></p>
+<h2 id="%E2%97%86html-%E3%81%AE%E6%9B%B8%E3%81%8D%E6%96%B9">◆HTML の書き方</h2>
+<p>「開始タグ：&lt;&gt;」と「終了タグ：&lt;/&gt;」と呼ばれる記号を用いてコンテンツを<br>
+囲むように記述します。 下の例では「テキスト」という文字に対し、段落を<br>
+指定する「p タグ」で囲んでいます。</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>テキスト<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</div></code></pre>
+<br>
+<p>開始タグから終了タグまでの記述を「要素(element)」といいます。<br>
+要素によっては終了タグが無い場合もあります。</p>
+<p><br><br></p>
+<img src="element.png">
+<br>
+<br>
+<h2 id="%E2%97%86-%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AE%E8%A8%98%E8%BF%B0">◆ コードの記述</h2>
+<p>それではいよいよ、実際に HTML のコードを記述してみましょう。<br>
+今回は「CodePen」を利用していきます。CodePen は、環境設定を<br>
+必要としないオンラインエディタです。HTML、CSS、JavaScript の<br>
+コードをブラウザ上で記述し、その結果をリアルタイムで表示する事が<br>
+出来ます。とても便利なサービスです。<img class="emoji" alt="blush" src="data:image/png;base64,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" /></p>
+<blockquote>
+<p><a href="https://codepen.io/" target="_blank">CodePen</a></p>
+</blockquote>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 1-1</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+1. CodePenを立ち上げ、右上のアイコンからNew Penを作成する。<br>
+2. HTMLのスペースに pタグの開始タグと終了タグを記述する。<br>
+3. 開始タグと終了タグの間に「テキスト」を入力し、表示結果を確認する。
+</div>
+<br>
+<h2 id="%E2%97%86-%E3%82%BF%E3%82%B0%E3%81%AE%E7%A8%AE%E9%A1%9E%E3%81%A8%E4%BD%BF%E3%81%84%E6%96%B9">◆ タグの種類と使い方</h2>
+<p>HTML で規定されているタグには、たくさんの種類があります。まずは以下に示すタグについて確認していきましょう。</p>
+<blockquote>
+<ol>
+<li>h タグ</li>
+<li>p タグ</li>
+<li>ol, ul, li タグ</li>
+<li>a タグ</li>
+<li>img タグ</li>
+</ol>
+</blockquote>
+<br>
+<h3 id="1-h-%E3%82%BF%E3%82%B0">1. h タグ</h3>
+<p><mark>見出し</mark>である事を指定します。h1 ～ h6 まであり、数字が大きくなる程、<br>
+文字の大きさは小さくなっていきます。そのページの重要なテーマに対して用いられるため、<br>
+記事のタイトル等が対象となります。なお、h は Heading の頭文字です。</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>見出し1<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>見出し2<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>見出し3<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+</div></code></pre>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 1-2
+</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+HTMLに 上記のコードを記述して、結果を確認しましょう。<br>
+※ コードを記述する際、「h1」 を入力した後にTabキーを押してみましょう。
+</div>
+<br>
+<h3 id="2-p-%E3%82%BF%E3%82%B0">2. p タグ</h3>
+<p>テキストに対し、<mark>段落</mark>である事を指定します。まとまりのある文章に対して用いられるため、<br>
+記事の本文などが対象となります。p は Paragraph の頭文字です</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>テキスト1<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>テキスト2<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>テキスト3<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</div></code></pre>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 1-3</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+1. HTMLのスペースに「テキスト1テキスト2テキスト3」を記述またはコピペする。<br>
+2. 表示結果を確認し、テキスト1とテキスト2の間、テキスト2とテキスト3の前で改行する<br>
+3. 表示結果を確認し、各テキストの前後を pタグの開始タグと終了タグで囲む
+</div>
+<br>
+<h3 id="3-ol-ul-li-%E3%82%BF%E3%82%B0">3. ol, ul, li タグ</h3>
+<p>これらはリストを作成するためのタグです。これまでのタグと違い、タグの中に別のタグを記述します。<br>
+下のコードを確認しましょう。また、ol タグ 及び ul タグに対して li 要素が字下げされています。<br>
+タグの関係を分かりやすくするためのルールで、<mark>インデント</mark>といいます。Tab キー 1 回分字下げします。</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">ol</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>one<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>two<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>three<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ol</span>&gt;</span>
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Red<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Blue<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Green<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+</div></code></pre>
+<p>ol は Ordered List (順序リスト)、ul は Unordered List (非順序リスト) の頭文字です。<br>
+言葉だけでは分かりにくいので、実際にコードを表示してみましょう。</p>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 1-4</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+HTMLに 上記のコードを記述して、結果を確認しましょう。<br>
+</div>
+<br>
+<h3 id="4-a-%E3%82%BF%E3%82%B0">4. a タグ</h3>
+<p>a タグは別のウェブページやファイル、ページ内へのリンクを作成します。このタグでは href 属性を記述し、<br>
+リンク先の URL を指定します。開始タグと終了タグの間には、表示したいテキストを記述します。</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"URL"</span>&gt;</span>リンク先<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+</div></code></pre>
+<p><mark>属性</mark>という言葉が初めて出てきました。簡単に説明すると、HTML の要素に情報を付加するものです。<br>
+今回で言えば、 a タグに対して URL の情報を付加しています。属性が必要なタグは他にもありますが、p タグなどに<br>
+任意で属性を追加する事もあります。まずは「属性とは開始タグの後ろに情報を追加する事」と認識があれば OK です<img class="emoji" alt="ok_hand" src="data:image/png;base64,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" /><br>
+また、a は Anchor text の頭文字、href は Hypertext REFerence の略称です。
+<br><br></p>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 1-5</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+1. HTMLに aタグを作成する。(a の後にTabキーを押す)<br>
+2. href の後ろに GoogleのURLをコピペする。<br>
+3. a タグの開始タグと終了タグの間に「Google」 の文字を記述する。<br>
+4. 表示された結果のハイパーリンクを 新しいタブで開く
+</div>
+<br>
+<h3 id="5-img-%E3%82%BF%E3%82%B0">5. img タグ</h3>
+<p>画像ファイルを指定するタグです。src 属性には、画像のファイル名を含むパスを記述します。<br>
+パスについては「ファイルが保存されている場所までのアドレス」の認識で OK です。</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"パス + ファイル名"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"リンク先の内容"</span> /&gt;</span>
+</div></code></pre>
+<p>alt 属性には、画像が表示されなかった際に替わりに表示されるテキストを指定します。<br>
+例えば、りんごの画像を表示している場合は、alt=&quot;apple_Fig&quot; 等と記述します。<br>
+img は image, src は source, alt は alternative の略称です。</p>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 1-6</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+1. img タグを記述する。<br>
+2. alt 属性に「プログラマーのイラスト」を記述またはコピペする。<br>
+3. src 属性に<br>
+https://2.bp.blogspot.com/-Gp2_6OZJ1FQ/XASwZmJF9yI/AAAAAAABQZ0/C8dUDl0e_uEWbDjvwNAo8DArlJX4vIaFwCLcBGAs/s400/computer_programming_man.png<br>
+を貼り付け<br>
+4. 表示結果を確認する。
+</div>
+<p><br><br><br></p>
+<h1 id="2-html-%E5%85%A5%E9%96%80">2. HTML 入門</h1>
+<p>1.HTML の基礎知識では、代表的なタグをそれぞれ記述して、HTML の記述に慣れてもらいました。<br>
+この章では、Web ページの構造を作るタグを中心に解説し、Web ページを設計していきましょう! <img class="emoji" alt="muscle" src="data:image/png;base64,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" /></p>
+<br>
+<h2 id="%E2%97%86html-%E3%81%AE%E5%9F%BA%E6%9C%AC%E6%A7%8B%E9%80%A0">◆HTML の基本構造</h2>
+<p>Web ページの基本構造は、次のタグを中心に記述します。</p>
+<dl>
+  <dt><u>!DOCTIPE html</u></dt>
+  <dd>HTMLのバージョンを宣言する部分です。使用するHTMLの規格をブラウザに伝える役割を持ちます。</dd>  
+  <br>
+  <dt><u>html タグ</u></dt>
+  <dd>HTML文書であることを宣言するタグで、すべての要素の親となります。つまり記述される全てのタグは、<br>  
+  htmlタグの開始タグと終了タグの間に収まる必要があります。また、言語の属性を記述する場所でもあるため、<br>
+  日本語のサイトであれば lang="ja"を記述します。</dd>
+  <br>
+  <dt><u>head タグ</u></dt>
+  <dd>文書に関する全般的な情報(メタデータ)を記述します。具体的には文書のタイトルや外部参照先の<br>  
+  リンクなどを配置します。次に解説する meta タグと title タグを含みます。</dd>
+  <br>
+  <dt><u>meta タグ</u></dt>
+  <dd>文書に関する情報を指定します。文字コード charset="utf-8" を記述する場所の認識でOKです。</dd>
+  <br>
+  <dt><u>title タグ</u></dt>
+  <dd>ページのタイトルを指定します。タイトルは、ブラウザのタブ表示される部分です。</dd>
+  <br>
+  <dt><u>body タグ</u></dt>
+  <dd>ページのコンテンツ要素を指定します。前の章で学習した見出しや文章、画像などはここに記述します。</dd>
+</dl>
+<br>
+これらのタグをコードとして記述すると、次のようになります。
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"ja"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>タイトル<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>テキスト<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</div></code></pre>
+<p>上記コードを見ると、タグの中に別のタグが入った構造が複数出て来ます。この構造を<mark>ネスト(入れ子)</mark>と呼びます。<br>
+タグの中に入る要素は、原則としてインデントを入れて字下げし、どのタグの中にあるか分かりやすくします。</p>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 2-1</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+上記の図を参照し、以下のコードを記述していきましょう。<br>
+1. !DOCTYPE html を記述する。<br>
+2. htmlタグの中に head タグと body タグを記述する。<br>
+3. headタグ内に metaタグと titleタグを、bodyタグ内に p タグを記述する。<br>
+4. metaタグ：charset="UTF-8"、titleタグ：マップ、pタグ：計装エンジニアリング 東京事業所 を記述する<br>
+5. ネストの部分にインデントを入れて、見た目を整える。  
+</div>
+<br>
+<p><br><br></p>
+<h2 id="%E2%97%86header-%E3%82%BF%E3%82%B0%E3%81%A8-footer-%E3%82%BF%E3%82%B0">◆header タグと footer タグ</h2>
+<p>上記のタグ以外に、Web ページの構造に関わるタグを 2 つ解説します。</p>
+<br>
+<dt><u>header タグ</u></dt>
+  <dd>サイト内でヘッダー部分(上部)を指定するタグです。サイト名やナビゲーター、記事の見出使われます。</dd>  
+  <br>
+<dt><u>footer タグ</u></dt>
+  <dd>サイト内でフッター部分(下部)を指定するタグです。関連文書へのリンクや、著作権情報等を記載します。</dd>
+<p>ページ構造は、以下の図のようなイメージを持っていただければ良いです。絶対的なルールではありませんが、<br>
+構造を示すタグを記述する事で、構成の整理やこの後学習する CSS にも役立つので、慣れていきましょう。</p>
+</div>
+<p><br><br><br></p>
+<h1 id="3-css-%E3%81%AE%E5%9F%BA%E7%A4%8E%E7%9F%A5%E8%AD%98">3. CSS の基礎知識</h1>
+<h2 id="%E2%97%86css-%E3%81%A8%E3%81%AF">◆CSS とは</h2>
+<p>Web ページの文字や色、コンテンツの配置などを整える言語です。近年では HTML はページの構造、<br>
+CSS はページのレイアウトと、それぞれ役割を分担する方法が主流となっています。</p>
+<br>
+<h2 id="%E2%97%86css-%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E5%A4%96%E9%83%A8%E5%8F%82%E7%85%A7">◆CSS ファイルの外部参照</h2>
+<p>記述した CSS を Web ページに反映させるためには、(1) 内部参照(HTML ファイルに CSS を記述する) 、<br>
+(2) 外部参照 (HTML ファイルから CSS ファイルを読み込む) のいずれかを行いますが、原則は(2)を用います。<br>
+(1) だとコードが長くなって可読性が下がり、全体的な修正も手間がかかるためです。</p>
+<br>
+<img src="HTML_CSS.png">
+<p><br><br></p>
+<h2 id="%E2%97%86link-%E3%82%BF%E3%82%B0">◆link タグ</h2>
+<p>外部ファイルを指定するタグです。CSS の外部参照などに用いられ、head タグ内に以下の要素を記述します。</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"ファイルの参照先"</span> /&gt;</span>
+</div></code></pre>
+<p>rel 属性ではファイルとの関係性(今回は CSS のため、Stylesheet)、href 属性では ファイルの参照先を記述します。<br>
+HTML ファイルと CSS ファイルを同じフォルダ(階層)に保存した場合は、ファイル名のみ記述します。</p>
+<p>注意して欲しいのが、今回使用している CodePen ではあらかじめ HTML と CSS が連携されているため、<br>
+外部参照を記述しなくても、CSS の内容が反映されます。実際に Web ページを 1 から作成する場合は、<br>
+必ず link タグによる外部参照を記述しましょう。</p>
+<br>
+<h2 id="%E2%97%86css-%E3%81%AE%E6%9B%B8%E3%81%8D%E6%96%B9">◆CSS の書き方</h2>
+<p>対象となる HTML 要素を<mark>セレクタ</mark>、指定したい内容を<mark>プロパティ</mark>、プロパティの詳細を<mark>値</mark>で記述します。また、セレクタの後には<br>
+{} (波括弧) を書き、プロパティと値を記述します。プロパティと値の間には : (コロン)、値の後には ; (セミコロン) を記述します。</p>
+<img src="selector.png" alt="セレクタ">
+<br>
+<p>上記の例は「p タグ内のコンテンツに、赤色を指定する」という記述になります。</p>
+<br>
+<h2 id="%E2%97%86-%E3%83%95%E3%82%A9%E3%83%B3%E3%83%88%E3%83%97%E3%83%AD%E3%83%91%E3%83%86%E3%82%A3">◆ フォントプロパティ</h2>
+<p>まずはフォントの見た目を指定するプロパティから勉強しましょう。</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Apple<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-selector-tag">p</span> {
+  <span class="hljs-attribute">font-style</span>: italic; <span class="hljs-comment">/* italic, normal, oblique */</span>
+  <span class="hljs-attribute">font-weight</span>: bold; <span class="hljs-comment">/* normal, lighter */</span>
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">30px</span>;
+  <span class="hljs-attribute">font-family</span>: cursive; <span class="hljs-comment">/* arial, Georgia, sans-serif,  */</span>
+}
+</div></code></pre>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 3-1</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+New Pen から新しいページを作成し、HTML及びCSSに 上記のコードを記述しましょう。<br>
+</div>
+<br>
+<p>また、font プロパティはまとめて指定することができます。font: の後にプロパティを半角スペースを挟んで指定します。<br>
+font-size と font-family 以外は省略可能で、省略した場合はデフォルト値が適用されます。</p>
+<pre class="hljs"><code><div><span class="hljs-selector-tag">p</span> {
+  <span class="hljs-attribute">font</span>: italic bold <span class="hljs-number">30px</span> cursive;
+}
+</div></code></pre>
+<p><br><br></p>
+<h2 id="%E2%97%86-%E3%82%AB%E3%83%A9%E3%83%BC%E3%83%97%E3%83%AD%E3%83%91%E3%83%86%E3%82%A3">◆ カラープロパティ</h2>
+<p>次に、色を指定する指定するプロパティを勉強しましょう。</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Fruit<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Apple<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-selector-tag">h1</span> {
+  <span class="hljs-attribute">color</span>: (好きな色);
+  <span class="hljs-attribute">background-color</span>: (好きな色);
+}
+
+<span class="hljs-selector-tag">p</span> {
+  <span class="hljs-attribute">color</span>: (好きな色);
+  <span class="hljs-attribute">background-color</span>: (好きな色);
+}
+</div></code></pre>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 3-2</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+New Pen から新しいページを作成し、HTML及びCSSに 上記のコードを記述しましょう。<br>
+プロパティ値は下記URLを参照し、「キーワード」から好きな色を選びましょう。<br>
+<a href="https://developer.mozilla.org/ja/docs/Web/CSS/color_value" target="_blank">CSS カラープロパティ値</a>
+</div>
+<p>参照ページを見ると、プロパティ値に「RGB 16 進表記」表示がありました。これについて説明します。<br>
+RGB は、Red Green Blue の頭文字で、赤・緑・青 を混合する割合で色を指定します。RGB カラーモデルと<br>
+呼ばれる表現法で、0 ～ 255 の数値で表示します。例えば「R:0 G：0 B:0」 の場合は「白」になります。</p>
+<p>また、0 ～ 255 の数字を 2 桁の 16 進数(0 ～ 9 と A ～ F までの数字で表す記法)で表現する事も可能です。<br>
+そのため、いずれかのプロパティ値で色を指定します。直感的にはキーワード、細かい設定は RGB カラーが<br>
+使いやすいです。</p>
+<p><br><br></p>
+<h2 id="%E2%97%86-%E3%83%9C%E3%83%83%E3%82%AF%E3%82%B9%E3%83%A2%E3%83%87%E3%83%AB">◆ ボックスモデル</h2>
+<p>上記の演習内容を実行すると、テキストの背景色が画面の端まで続く四角である事、そして 2 つのテキストの間に<br>
+隙間がある事に気付いたと思います。これは、ボックスモデルと呼ばれるレイアウトが関係しています。</p>
+<p>ボックスモデルとは、HTML の各要素がボックスと呼ばれる長方形の領域を生成し、その中にコンテンツや余白、<br>
+境界線が含まれる状態になっています。CSS では、要素のコンテンツや余白に対してプロパティを設定し、<br>
+位置や幅、色を指定する事が可能になります。</p>
+<br>
+<img src="box_model.png">
+<p>次の章からは、ボックスモデルに関連するセレクタについて、解説していきましょう。</p>
+<p><br><br><br></p>
+<h1 id="4-css-%E5%85%A5%E9%96%80">4. CSS 入門</h1>
+<p>この章では、ボックスモデルに関連するプロパティを学習していきます。それぞれのプロパティが、<br>
+どの部分を示すのかしっかり理解していきましょう。</p>
+<br>
+<h2 id="%E2%97%86border">◆border</h2>
+<p>内側の余白(padding)と外側の余白(margin)の境界線をボーダーといいます。<br>
+プロパティは線の幅や種類、色を指定できます。
+<br></p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>ボックスモデル<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-selector-tag">p</span> {
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">5px</span> solid red;
+}
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-selector-tag">p</span> {
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">3px</span> dashed blue;
+}
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-selector-tag">p</span> {
+  <span class="hljs-attribute">border</span>: thick double <span class="hljs-number">#32a1ce</span>;
+}
+</div></code></pre>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 4-1</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+NewPenから新しいファイルを作成後、上記のコードを記述して結果を確認しましょう。
+</div>
+<br>
+<h2 id="%E2%97%86margin">◆margin</h2>
+<p>ボーダーの外側にある余白をマージンといいます。margin プロパティは、対象の要素の上下左右にある<br>
+margin の幅を指定します。</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>ボックスモデル<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-selector-tag">p</span> {
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">5px</span> solid red;
+  <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">10px</span>;
+  <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">20px</span>;
+  <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">10px</span>;
+  <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">20px</span>;
+}
+</div></code></pre>
+<p>上記のプロパティ値は、以下の形で記述できます。</p>
+<pre class="hljs"><code><div><span class="hljs-selector-tag">p</span> {
+  <span class="hljs-attribute">margin</span>: <span class="hljs-number">10px</span> <span class="hljs-number">20px</span>;
+}
+</div></code></pre>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 4-2</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+margin-top以下のコードを演習4-1に追加し、結果を確認しましょう。<br>
+また、各 marginの値を任意で変更し、表示される結果の変化を確認しましょう。
+</div>
+<br>
+<h2 id="%E2%97%86padding">◆padding</h2>
+<p>コンテンツとボーダー(境界線)の間にある領域をパディング領域といいます。プロパティは上下左右の幅を指定します。</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>ボックスモデル<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-selector-tag">p</span> {
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">5px</span> solid red;
+  <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">10px</span>;
+  <span class="hljs-attribute">padding-right</span>: <span class="hljs-number">10px</span>;
+  <span class="hljs-attribute">padding-bottom</span>: <span class="hljs-number">10px</span>;
+  <span class="hljs-attribute">padding-left</span>: <span class="hljs-number">10px</span>;
+}
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-selector-tag">p</span> {
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span>;
+}
+</div></code></pre>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 4-3</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+padding-top以下のコードを演習4-2から修正し、結果を確認しましょう。<br>
+また、各 paddingの値を任意で変更し、表示される結果の変化を確認しましょう。
+</div>
+<br>
+<h2 id="%E2%97%86width">◆width</h2>
+<p>コンテンツの幅を指定する場合は width(ウィドゥス) を使用します。<br>
+px での表示も可能ですが、今回は % 表示を確認しましょう。</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>ボックスモデル<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-selector-tag">p</span> {
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">5px</span> solid red;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">50%</span>;
+}
+</div></code></pre>
+<p>また、上記で学習した margin プロパティを利用する事で、レイアウトを調整できます。<br>
+margin: 0 auto を指定する事で、左右の margin が等分になるよう調整されます。</p>
+<pre class="hljs"><code><div><span class="hljs-selector-tag">p</span> {
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">5px</span> solid red;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">50%</span>;
+  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;
+}
+</div></code></pre>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 4-4</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+上記のコードを記述し、結果を確認しましょう。
+</div>
+<p><br><br></p>
+<p>それでは、border, margin, padding, width をひと通り学んだ所で、改めてボックスモデルをおさらいします。</p>
+<br>
+<img src="box_model.png">
+<br>
+<p>それぞれのプロパティがどこを指定するか、何となく理解できたでしょうか。これらの値を設定する事で、<br>
+画面のどの辺りにレイアウトするかも決められるため、覚えていきましょう。</p>
+<p><br><br></p>
+<hr>
+<p>本章はここまでです。長時間お疲れ様でした。今回は簡単な Web ページの記述について学びました。<br>
+次回はより複雑な記述やレイアウトについて学んでいきましょう。</p>
+<p><a href="">HTML/CSS 学習テキスト(2)へ</a></p>
+
+</body>
+</html>
